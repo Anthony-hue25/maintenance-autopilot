@@ -25,28 +25,7 @@ GROUND_TRUTH_PATH = Path("data/ground_truth.csv")
 PREDICTIONS_PATH = Path("data/agent_predictions.csv")
 
 
-RUN_CASE_IDS = [
-    # Original 10-case regression set
-    "GT-037",
-    "GT-040",
-    "GT-043",
-    "GT-050",
-    "GT-060",
-    "GT-003",
-    "GT-007",
-    "GT-014",
-    "GT-023",
-    "GT-027",
-
-    # Seven independent-run failures
-    "GT-010",
-    "GT-016",
-    "GT-019",
-    "GT-020",
-    "GT-024",
-    "GT-029",
-    "GT-035",
-]
+RUN_CASE_IDS = None
 
 
 TradeCategory = Literal[
@@ -134,6 +113,11 @@ def load_cases():
     ) as file:
         rows = list(csv.DictReader(file))
 
+    # Full benchmark
+    if RUN_CASE_IDS is None:
+        return rows
+
+    # Selected subset
     rows_by_id = {
         row["Case_ID"]: row
         for row in rows
@@ -154,7 +138,6 @@ def load_cases():
         rows_by_id[case_id]
         for case_id in RUN_CASE_IDS
     ]
-
 
 def build_guardrails(row):
     request = row["Request"]
