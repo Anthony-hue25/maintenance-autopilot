@@ -1,0 +1,6 @@
+Case_ID,Predicted_Safety,Predicted_Urgency,Predicted_Trade,Predicted_Outcome
+GT-001,Safe,Routine,Plumbing,ACT
+GT-002,Unsafe,Emergency,Gas/Emergency,ACT+ESCALATE
+GT-003,Safe,Routine,HVAC,ACT
+GT-004,Safe,Priority,HVAC,ESCALATE
+GT-005,Safe,Priority,Plumbing,ACT
