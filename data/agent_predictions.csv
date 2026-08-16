@@ -1,62 +1,62 @@
 Case_ID,Predicted_Safety,Predicted_Urgency,Predicted_PrimaryTrade,Predicted_SecondaryTrades,Raw_Agent_Outcome,Governor_Outcome,Governor_Intervened,Reason
-GT-001,Safe,Routine,PLUMBING,,ACT,ACT,False,Kitchen faucet steady drip when fully off. No safety hazard detected. Routine maintenance issue.
-GT-002,Unsafe,Emergency,GAS,,ESCALATE,ACT+ESCALATE,True,"Strong smell of gas detected in kitchen, increasing over time. Immediate risk of gas leak."
-GT-003,Unsafe,Priority,HVAC,,ACT,ACT+ESCALATE,True,Water dripping from AC unit near electrical outlet poses safety risk; requires prompt HVAC inspection and repair to prevent electrical hazard
-GT-004,Safe,Priority,HVAC,,ESCALATE,ESCALATE,False,Central AC not cooling with water pooling in drip tray. Diagnosis: failed condensate pump. Replacement quote $285 exceeds owner authority limit of $200.
-GT-005,Safe,Priority,PLUMBING,,ACT,ACT,False,Water leak from garbage disposal unit under kitchen sink. Leak stops when disposal is not running. Within authority ($150 vs $200 limit). No safety hazards detected.
-GT-006,Unknown,Priority,MOISTURE,,AWAITING,ESCALATE,True,Damp patch on bedroom ceiling appears larger than last week. Insufficient information to determine source or severity. Requires professional assessment to identify cause and prevent potential mold growth or structural damage.
-GT-007,Safe,Priority,PLUMBING,,ACT,ESCALATE,True,Repeated toilet clog requires prompt professional plumbing service to clear blockage and prevent further backups. Within owner authority limit.
-GT-008,Safe,Routine,GENERAL,,CLOSE,CLOSE,False,Bowl overflow mopped; no active source or damage
-GT-009,Unsafe,Priority,LOCKSMITH,,ACT,ACT,False,Security issue with front door lock; no response to clarification about lock functionality; previous history of sticky lock; within repair authority
-GT-010,Unsafe,Priority,MOISTURE,PLUMBING,ACT,ESCALATE,True,"Bathroom sink draining slowly with musty smell, soft wall under sink, and dark staining indicating moisture and potential mold growth. Requires immediate remediation to prevent further damage and health risks."
-GT-011,Safe,Priority,ELECTRICAL,,ACT,ACT,False,Bathroom extractor fan failure - no noise indicates electrical fault requiring prompt repair to maintain ventilation and prevent moisture buildup.
-GT-012,Safe,Priority,ELECTRICAL,,ASK,ASK,False,"Garbage disposal humming but not spinning, won't turn. Repair quote $201 exceeds owner authority limit of $200. Requires owner judgment to approve cost or seek alternative repair option."
-GT-013,Unsafe,Emergency,ELECTRICAL,PLUMBING,ESCALATE,ACT+ESCALATE,True,"Washing machine tripped breaker and is leaking, creating water near electrical hazard. Repair cost $300 exceeds owner authority limit of $250."
-GT-014,Safe,Cosmetic,GENERAL,,ACT,ACT,False,"Small scuff and peeling paint on hallway wall - cosmetic issue, no safety hazard"
-GT-015,Safe,Priority,HVAC,,ESCALATE,ESCALATE,False,"Water heater not heating; replacement recommended at $1,200 which exceeds owner authority limit of $300. Requires owner judgment for approval."
-GT-016,Unsafe,Emergency,GAS,,ACT,ACT+ESCALATE,True,Gas connection appears unsafe per contractor observation; requires immediate professional assessment and correction to prevent gas leak or CO hazard
-GT-017,Unsafe,Emergency,PLUMBING,,ESCALATE,ACT+ESCALATE,True,Water pouring from ceiling in living room - uncontrolled water hazard
-GT-018,Safe,Routine,ELECTRICAL,,CLOSE,CLOSE,False,The kitchen light was flickering but resolved after reseating the bulb; no further action required.
-GT-019,Unknown,Unknown,HVAC,,ASK,ESCALATE,True,Unable to process request due to invalid unit identifier U9. Need clarification on correct unit number to proceed with HVAC service request for non-functional heater.
-GT-020,Unsafe,Priority,GENERAL,,ACT,ASK,True,Window latch failure creates security vulnerability. Within authority ($75 vs $250 limit). No additional information needed.
+GT-001,Safe,Routine,PLUMBING,,ACT,ACT,False,Steady drip from kitchen faucet when fully off. No safety hazards detected. Within authority limit ($50 vs $200). Recent replacement history suggests possible valve issue.
+GT-002,Unsafe,Emergency,GAS,,ACT,ACT+ESCALATE,True,"Gas smell detected in kitchen, increasing in intensity. Immediate risk of gas leak or carbon monoxide exposure."
+GT-003,Unsafe,Priority,HVAC,,ACT,ACT+ESCALATE,True,Water dripping from AC unit near electrical outlet poses safety hazard; requires immediate HVAC inspection and repair to prevent electrical shock or further water damage
+GT-004,Safe,Priority,HVAC,,ESCALATE,ESCALATE,False,Failed condensate pump causing water pooling; replacement quote $285 exceeds owner authority limit of $200
+GT-005,Safe,Priority,PLUMBING,,ACT,ACT,False,Water leak from garbage disposal unit under kitchen sink. Leak stops when disposal is not running. Previous jam history indicates potential recurring issue. Repair within owner authority ($150 < $200). Immediate action required to prevent water damage.
+GT-006,Unknown,Priority,MOISTURE,,AWAITING,ESCALATE,True,Damp patch on bedroom ceiling appears larger than last week. Insufficient information to determine source or severity. Requires professional assessment to prevent potential mold growth and structural damage.
+GT-007,Safe,Priority,PLUMBING,,ACT,ESCALATE,True,Repeated toilet clog requires prompt plumbing service to prevent overflow and water damage
+GT-008,Safe,Routine,GENERAL,,CLOSE,CLOSE,False,Bowl overflow mopped; no active source or safety hazard
+GT-009,Unsafe,Priority,LOCKSMITH,,ASK,ACT,True,No response to clarification about door lock functionality and security status. Need owner confirmation if door can be locked/secured before proceeding.
+GT-010,Unsafe,Priority,PLUMBING,MOISTURE,ACT+ESCALATE,ESCALATE,True,"Slow drain, musty smell, soft wall under sink, dark staining - indicates potential water damage and mold risk requiring immediate attention"
+GT-011,Safe,Priority,ELECTRICAL,,ACT,ACT,False,Bathroom extractor fan failure - no noise indicates electrical fault; within authority limit; no safety hazards detected; priority for ventilation and moisture control.
+GT-012,Safe,Priority,ELECTRICAL,,ESCALATE,ESCALATE,False,Garbage disposal unit not operating - humming but not spinning. Repair quote $201 exceeds owner authority limit of $200. Requires owner approval or cost reduction.
+GT-013,Unsafe,Emergency,ELECTRICAL,PLUMBING,ACT,ACT+ESCALATE,True,"Washing machine tripped breaker and is leaking water, creating an immediate electrical safety hazard. Requires urgent electrical inspection and repair to prevent further damage or injury."
+GT-014,Safe,Cosmetic,GENERAL,,ACT,ACT,False,"Small scuff and peeling paint on hallway wall - cosmetic issue, safe, within authority"
+GT-015,Safe,Priority,HVAC,,ESCALATE,ESCALATE,False,"Water heater not heating; repair cost $180 within authority but replacement recommended at $1,200 which exceeds owner authority limit of $300. Safety not compromised but functional failure impacts hot water availability."
+GT-016,Unsafe,Emergency,GAS,,ACT,ACT+ESCALATE,True,Gas connection appears unsafe per contractor observation; requires immediate professional assessment and correction to prevent gas leak or CO hazard.
+GT-017,Unsafe,Emergency,PLUMBING,,ACT,ACT+ESCALATE,True,Water pouring from ceiling in living room - uncontrolled water hazard requiring immediate intervention
+GT-018,Safe,Routine,ELECTRICAL,,CLOSE,CLOSE,False,The kitchen light flickering issue was resolved by reseating the bulb and is no longer occurring. No safety hazards or ongoing concerns are present.
+GT-019,Unknown,Unknown,HVAC,,ASK,ESCALATE,True,Unit U9 not found in property records. Need clarification on correct unit number or location to proceed with heater repair assessment.
+GT-020,Safe,Priority,GENERAL,,ACT,ASK,True,"Window latch not closing properly, poses security risk"
 GT-021,Safe,Priority,HVAC,,ACT,ACT,False,AC unit rattling and not cooling well - impacts comfort and functionality
-GT-022A,Safe,Routine,PLUMBING,,ACT,ACT,False,"Plumbing repair required; quoted cost is $240, within owner authority limit of $300."
-GT-022B,Safe,Priority,PLUMBING,,ESCALATE,ESCALATE,False,Quoted repair cost of $240 exceeds owner authority limit of $200; requires owner approval for overage.
-GT-023,Unsafe,Emergency,ELECTRICAL,,ESCALATE,ACT+ESCALATE,True,Smoke detected from electrical panel - immediate safety hazard requiring emergency response despite unit ID not found in system
-GT-024,Safe,Priority,PLUMBING,,ACT,ACT,False,Running toilet causing water waste; same unit had recent clogs indicating possible ongoing issue
-GT-025,Safe,Routine,PLUMBING,,ASK,ESCALATE,True,The tenant requests an upgrade to a 1HP stainless steel garbage disposal unit. The current unit is functional but the tenant prefers the upgrade. The quoted cost of $250 exceeds the unit's $200 authority limit. Owner judgment is required to approve the upgrade and any associated cost.
-GT-026,Safe,Priority,HVAC,,ESCALATE,ESCALATE,False,"AC not cooling due to failing compressor; full replacement required at $1,400 which exceeds owner authority limit of $200. Vendor diagnosis confirmed."
-GT-027,Safe,Priority,MOISTURE,,ACT,ACT,False,Brown ceiling stain under upstairs bathroom indicates water leak requiring prompt attention to prevent damage
-GT-028,Safe,Routine,LOCKSMITH,,ACT,AWAITING,True,Cabinet door under sink is loose; no safety hazard detected; within authority; routine repair
-GT-029,Safe,Emergency,PLUMBING,,ACT,ACT+ESCALATE,True,Burst pipe under kitchen sink causing water damage to cabinet and floor. Water has been turned off by tenant. Property damage detected. Repair cost $180 is within unit's $200 authority limit.
+GT-022A,Safe,Priority,PLUMBING,,ACT,ACT,False,"Plumbing repair required; quoted cost is $240, within owner authority limit of $300."
+GT-022B,Safe,Priority,PLUMBING,,ESCALATE,ESCALATE,False,Quoted cost $240 exceeds owner authority limit of $200; requires owner approval for overage.
+GT-023,Unsafe,Emergency,ELECTRICAL,,ESCALATE,ACT+ESCALATE,True,Smoke detected from electrical panel - immediate safety hazard
+GT-024,Safe,Priority,PLUMBING,,ACT,ACT,False,Running toilet causing water waste; same unit had recent clogs indicating potential ongoing plumbing issue
+GT-025,Safe,Routine,PLUMBING,,ASK,ESCALATE,True,Owner requests upgrade to 1HP stainless garbage disposal. Current unit functional but slow. Upgrade cost $250 exceeds owner authority limit ($200). Requires owner approval for cost overrun before proceeding.
+GT-026,Safe,Priority,HVAC,,ESCALATE,ESCALATE,False,"AC compressor failure requires full replacement at $1,400, which exceeds owner authority limit of $200. Vendor confirmed compressor replacement is necessary."
+GT-027,Safe,Priority,MOISTURE,,ACT,ACT,False,Brown ceiling stain under upstairs bathroom indicates water leak requiring prompt investigation and repair to prevent mold growth
+GT-028,Safe,Routine,GENERAL,,ASK,AWAITING,True,No response to clarification about cabinet door condition (loose vs detached). Need visual confirmation to determine repair scope and cost before proceeding.
+GT-029,Safe,Priority,PLUMBING,,ACT,ACT+ESCALATE,True,Burst pipe under kitchen sink causing water damage to cabinet and floor. Water has been turned off. Repair within authority limit.
 GT-030,Unsafe,Emergency,GAS,ELECTRICAL|PLUMBING,ACT+ESCALATE,ACT+ESCALATE,False,"Gas smell detected near stove - immediate safety hazard. Additional issues (porch light out, dishwasher drainage) require attention but are secondary to gas safety."
-GT-031,Safe,Priority,PLUMBING,,ACT,ACT,False,"Kitchen tap won't stop dripping, been like it a few days. Replacement within authority."
-GT-032,Safe,Priority,HVAC,,ACT,ACT,False,AC blowing warm air indicates HVAC system malfunction. No safety hazards detected. Within repair authority ($180 vs $200 limit). Recommended to schedule with preferred vendor Comfort Air HVAC.
-GT-033,Safe,Routine,GENERAL,,ACT,ACT,False,"Cracked and wobbly toilet seat - functional issue, no safety hazard, within repair authority"
-GT-034,Unsafe,Priority,PEST,,ACT,ACT,False,Wasp nest by back door poses immediate safety risk to occupants and visitors; requires professional pest control to safely remove nest and prevent future occurrences.
-GT-035,Safe,Priority,PLUMBING,,ACT,ESCALATE,True,Repeated slow drain after recent clearance; within authority; no safety concerns
-GT-036,Safe,Priority,ELECTRICAL,,ACT,ACT,False,Washing machine loud grinding sound during spin cycle indicates potential motor or bearing issue requiring prompt repair to prevent further damage
+GT-031,Safe,Priority,PLUMBING,,ACT,ACT,False,"Kitchen tap won't stop dripping, been like it a few days. Replacement within authority ($150 vs $200 limit). Recent faucet replacement suggests possible recurring issue."
+GT-032,Safe,Priority,HVAC,,ACT,ACT,False,AC blowing warm air indicates HVAC system malfunction requiring prompt repair to restore cooling
+GT-033,Safe,Routine,GENERAL,,ACT,ACT,False,"Cracked and wobbly toilet seat - routine maintenance, no safety hazard, within authority"
+GT-034,Unsafe,Emergency,PEST,,ACT,ACT,False,Wasp nest by back door poses immediate safety risk
+GT-035,Safe,Priority,PLUMBING,,ACT,ESCALATE,True,Repeated slow drain after recent clearance; within authority; priority to prevent further recurrence.
+GT-036,Safe,Priority,APPLIANCE,,ACT,ACT,False,Washing machine making loud grinding sound during spin cycle - requires appliance technician inspection to diagnose bearing or motor issue
 GT-037,Safe,Priority,ELECTRICAL,,ACT,ACT,False,Smoke alarm chirping indicates low battery or malfunction; requires inspection and battery replacement or repair to ensure proper functioning.
-GT-038,Safe,Priority,PLUMBING,,ACT,ACT,False,"Water heater making banging noises indicates sediment build-up or malfunction; requires inspection and descaling to prevent future failure. Hot water still functional, so not an emergency."
-GT-039,Safe,Priority,LOCKSMITH,,ACT,ACT,False,Detached front door handle poses functional inconvenience and potential security risk if door fails to lock properly. Repair within owner authority limit.
-GT-040,Unknown,Priority,PLUMBING,,AWAITING,ASK,True,Water bill doubled; suspected leak not visible. Requires investigation to confirm presence and location of leak. Safety status unknown; urgency is priority due to potential water wastage and possible hidden damage.
-GT-041,Safe,Priority,ELECTRICAL,,ACT,ACT,False,"Power outage affecting half the apartment, no safety hazards detected, within repair authority, requires electrical diagnosis and repair"
-GT-042,Safe,Priority,PLUMBING,,ACT,ACT,False,"Dishwasher leak causing water damage, stopped use to prevent further issues"
-GT-043,Unsafe,Emergency,MOISTURE,PLUMBING,ESCALATE,ACT+ESCALATE,True,Dishwasher leak causing laminate floor swelling - property damage and safety hazard
+GT-038,Safe,Priority,PLUMBING,,ACT,ACT,False,Water heater making banging noises indicates potential sediment buildup or malfunction; requires prompt inspection to prevent failure and ensure safe operation.
+GT-039,Safe,Priority,LOCKSMITH,,ACT,ACT,False,Detachable door handle presents a functional issue and potential safety hazard. Repair within authority limits.
+GT-040,Unknown,Priority,PLUMBING,,AWAITING,ASK,True,Water bill doubled; suspected leak not visible. Requires investigation to confirm presence and location of leak. Priority due to potential water waste and cost impact.
+GT-041,Safe,Priority,ELECTRICAL,,ACT,ACT,False,Power outage affecting half the apartment requires prompt electrical inspection to identify and resolve circuit issues
+GT-042,Safe,Priority,PLUMBING,,ACT,ACT,False,"Dishwasher leak causing water damage, needs immediate repair to prevent further water damage"
+GT-043,Safe,Priority,PLUMBING,GENERAL,ACT,ACT+ESCALATE,True,"Dishwasher leak causing laminate floor swelling - property damage detected, requires prompt repair to prevent further damage"
 GT-044,Safe,Routine,GENERAL,,AWAITING,AWAITING,False,No response to clarification about cabinet location and severity; requires tenant input to proceed
-GT-045,Safe,Routine,ELECTRICAL,,CLOSE,CLOSE,False,Issue resolved itself; no further action required
+GT-045,Safe,Routine,ELECTRICAL,,CLOSE,CLOSE,False,Issue resolved spontaneously; no further action required
 GT-046,Unsafe,Emergency,ELECTRICAL,,ACT,ACT+ESCALATE,True,STRONG burning electrical smell from bedroom outlet indicates potential electrical fire hazard requiring immediate intervention
-GT-047,Safe,Priority,PLUMBING,,ACT,ACT,False,Toilet not flushing in only bathroom - impacts basic sanitation and tenant comfort. Within repair authority ($180 vs $250 limit).
-GT-048,Safe,Priority,ELECTRICAL,GENERAL,ACT,ACT,False,Oven not heating and bathroom fan noisy - both require electrical inspection and repair
-GT-049,Unsafe,Emergency,GAS,,ESCALATE,ACT+ESCALATE,True,"Gas smell in kitchen and stove igniter failure - immediate safety hazard requiring professional gas service. Repair cost exceeds owner authority limit ($250 > $200), requiring owner approval or escalation."
-GT-050,Unsafe,Emergency,MOISTURE,,ACT,ESCALATE,True,"Mold in bathroom ceiling corner, spreading. Requires immediate remediation to prevent health hazards and further damage."
+GT-047,Safe,Priority,PLUMBING,,ACT,ACT,False,Toilet not flushing in only bathroom - impacts basic sanitation and tenant comfort
+GT-048,Safe,Priority,ELECTRICAL,,ACT,ACT,False,Oven not heating and bathroom fan noisy - both require electrical inspection
+GT-049,Unsafe,Emergency,GAS,,ACT+ESCALATE,ACT+ESCALATE,False,Gas smell in kitchen and stove igniter failure indicate potential gas leak or combustion issue - immediate safety hazard requiring emergency response and professional gas service
+GT-050,Unsafe,Emergency,MOISTURE,,ACT,ESCALATE,True,"Mold in bathroom ceiling corner, spreading. Requires immediate remediation to prevent health hazards and further property damage."
 GT-051,Safe,Priority,HVAC,,ACT,ACT,False,AC drain line dripping onto floor causing puddle - requires prompt repair to prevent water damage
-GT-052,Safe,Emergency,ELECTRICAL,,ACT,ACT,False,Garage door stuck halfway trapping car inside. Immediate access required. Electrical repair within owner authority ($250 < $300).
-GT-053,Safe,Priority,PLUMBING,,ACT,ACT,False,Intermittent sewage smell in downstairs bathroom requires prompt plumbing inspection to identify potential drain blockage or siphon issue
-GT-054,Unsafe,Priority,LOCKSMITH,,ACT,ACT,False,"Ground floor window facing street won't lock, posing security risk. Repair within owner authority ($150 < $200). Use preferred vendor BrightSpark."
-GT-055,Unsafe,Emergency,APPLIANCE,,ACT,ACT,False,"Fridge not cooling, food spoiling, tenant present for access"
-GT-056,Safe,Routine,PLUMBING,,ACT,ACT,False,"Toilet running after flushing - minor issue, within repair authority"
-GT-057,Unsafe,Emergency,ELECTRICAL,,ACT,ACT+ESCALATE,True,"Ceiling light fixture fell and is hanging by the wires, posing an electrical/fire hazard"
-GT-058,Safe,Routine,HVAC,,ACT,ESCALATE,True,Owner requested upgrade to smart thermostat. No existing fault. Cost $180 is within owner authority limit of $200. Safe to proceed.
-GT-059,Safe,Routine,GENERAL,,ACT,ACT,False,Bathroom door handle sticks slightly but functions normally; no safety hazard or operational impairment reported.
-GT-060,Unsafe,Priority,STRUCTURAL,,ACT,ACT+ESCALATE,True,Balcony railing loose - potential fall hazard
+GT-052,Unsafe,Emergency,ELECTRICAL,,ACT,ACT,False,Garage door stuck halfway with car inside - immediate safety hazard and access issue
+GT-053,Safe,Priority,PLUMBING,,ACT,ACT,False,Intermittent sewage smell in downstairs bathroom requires prompt plumbing inspection to identify potential drain blockages or siphon issues
+GT-054,Unsafe,Priority,LOCKSMITH,,ACT,ACT,False,"Ground floor window facing street won't lock, posing security risk"
+GT-055,Unsafe,Emergency,APPLIANCE,,ACT,ACT,False,"Fridge not cooling, food spoiling - immediate safety concern for food safety"
+GT-056,Safe,Routine,PLUMBING,,ACT,ACT,False,"Toilet running after flushing - minor issue, within authority, no safety concerns"
+GT-057,Unsafe,Emergency,ELECTRICAL,,ACT,ACT+ESCALATE,True,Ceiling light fixture fell and is hanging by wires - electrical fire hazard
+GT-058,Safe,Routine,HVAC,,ACT,ESCALATE,True,Owner requested thermostat upgrade to smart thermostat. No safety concerns. Cost $150 is within unit authority limit of $200.
+GT-059,Safe,Routine,GENERAL,,ACT,ACT,False,Bathroom door handle sticks slightly but still functions; no safety hazard detected. Within authority limit ($50 vs $150). Recommended to schedule with preferred vendor HomeFix General.
+GT-060,Unsafe,Priority,STRUCTURAL,,ACT,ACT+ESCALATE,True,Balcony railing loose when leaning on it - potential fall hazard

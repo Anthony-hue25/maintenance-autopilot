@@ -721,3 +721,62 @@ def screen_repeat_failure(
         "repeat_failure_detected": bool(signals),
         "signals": signals,
     }
+def screen_authority(
+    unit_id: str,
+    request: str,
+    clarification: str = "",
+) -> dict:
+    """
+    Deterministically identify quoted repair costs and compare them
+    with the unit-specific autonomous authority limit.
+
+    A known authority breach forces ESCALATE. A within-authority
+    result does not force ACT because other overrides may still apply.
+    """
+
+    property_data = PROPERTIES.get(unit_id)
+
+    if property_data is None:
+        return {
+            "authority_known": False,
+            "authority_limit": None,
+            "quoted_costs": [],
+            "authority_exceeded": False,
+        }
+
+    text = f"{request} {clarification}"
+
+    # Capture values such as:
+    # $201
+    # $285.00
+    # ~$1,200
+    money_matches = re.findall(
+        r"[$]\s*([0-9][0-9,]*(?:\.[0-9]{1,2})?)",
+        text,
+    )
+
+    quoted_costs = []
+
+    for match in money_matches:
+        try:
+            quoted_costs.append(
+                float(match.replace(",", ""))
+            )
+        except ValueError:
+            pass
+
+    authority_limit = float(
+        property_data["authority_limit"]
+    )
+
+    authority_exceeded = any(
+        cost > authority_limit
+        for cost in quoted_costs
+    )
+
+    return {
+        "authority_known": True,
+        "authority_limit": authority_limit,
+        "quoted_costs": quoted_costs,
+        "authority_exceeded": authority_exceeded,
+    }

@@ -18,6 +18,7 @@ from app.tools import (
     screen_security_information,
     screen_resolution_state,
     screen_repeat_failure,
+    screen_authority,
 )
 
 
@@ -158,6 +159,12 @@ def build_guardrails(row):
             row["Unit"]
         ),
 
+        "authority": screen_authority(
+            row["Unit"],
+            request,
+            clarification,
+        ),
+
         "safety": screen_safety(
             request,
             clarification,
@@ -236,6 +243,7 @@ def resolve_outcome(
     """
 
     identity = guardrails["identity"]
+    authority = guardrails["authority"]
     safety = guardrails["safety"]
     information = guardrails["information"]
     scope = guardrails["scope"]
@@ -278,6 +286,13 @@ def resolve_outcome(
 
     if "STRUCTURAL_OR_FALL" in safety["hazards"]:
         return "ACT+ESCALATE"
+
+    # -------------------------------------------------
+    # AUTHORITY — KNOWN BREACH BEATS ASK
+    # -------------------------------------------------
+
+    if authority["authority_exceeded"]:
+        return "ESCALATE"
 
     # -------------------------------------------------
     # SECURITY INFORMATION
@@ -384,8 +399,6 @@ def main():
         guardrails = build_guardrails(row)
 
         # Fresh Strands agent for every benchmark case.
-        # This prevents conversation history from leaking
-        # between independent evaluation scenarios.
         agent = Agent(
             model=model,
             system_prompt=SYSTEM_PROMPT,
