@@ -24,7 +24,8 @@ from app.tools import (
 GROUND_TRUTH_PATH = Path("data/ground_truth.csv")
 PREDICTIONS_PATH = Path("data/agent_predictions.csv")
 
-
+# None = run the complete regression benchmark.
+# Replace with a list of Case_ID strings to run a subset.
 RUN_CASE_IDS = None
 
 
@@ -87,9 +88,9 @@ You are Maintenance Autopilot.
 
 Evaluate ONE rental-maintenance case independently.
 
-Use property and authority tools whenever relevant.
+Use the property and authority tools whenever relevant.
 
-Reason about:
+Reason carefully about:
 - safety,
 - urgency,
 - trade,
@@ -98,7 +99,7 @@ Reason about:
 - replacement,
 - maintenance history,
 - information sufficiency,
-- and owner judgment.
+- and whether owner judgment is required.
 
 Do not invent facts.
 
@@ -113,11 +114,9 @@ def load_cases():
     ) as file:
         rows = list(csv.DictReader(file))
 
-    # Full benchmark
     if RUN_CASE_IDS is None:
         return rows
 
-    # Selected subset
     rows_by_id = {
         row["Case_ID"]: row
         for row in rows
@@ -138,6 +137,7 @@ def load_cases():
         rows_by_id[case_id]
         for case_id in RUN_CASE_IDS
     ]
+
 
 def build_guardrails(row):
     request = row["Request"]
@@ -229,6 +229,10 @@ def resolve_outcome(
 ):
     """
     Deterministic enforcement of the frozen outcome rules.
+
+    This function may override Outcome only.
+    Safety, Urgency, PrimaryTrade and SecondaryTrades remain
+    the raw agent classifications.
     """
 
     identity = guardrails["identity"]
@@ -352,7 +356,7 @@ def resolve_outcome(
     if resolution["close_candidate"]:
         return "CLOSE"
 
-    # Otherwise preserve the model's outcome.
+    # Otherwise preserve the raw model decision.
     return decision.Outcome
 
 
@@ -366,7 +370,7 @@ def main():
     cases = load_cases()
 
     print(
-        f"\nLoaded {len(cases)} regression cases."
+        f"\nLoaded {len(cases)} benchmark cases."
     )
 
     predictions = []
@@ -379,7 +383,9 @@ def main():
 
         guardrails = build_guardrails(row)
 
-        # Fresh Strands agent for every case.
+        # Fresh Strands agent for every benchmark case.
+        # This prevents conversation history from leaking
+        # between independent evaluation scenarios.
         agent = Agent(
             model=model,
             system_prompt=SYSTEM_PROMPT,
@@ -405,10 +411,16 @@ def main():
                 f"but agent returned {decision.Case_ID}"
             )
 
-        final_outcome = resolve_outcome(
+        raw_outcome = decision.Outcome
+
+        governor_outcome = resolve_outcome(
             row,
             decision,
             guardrails,
+        )
+
+        governor_intervened = (
+            raw_outcome != governor_outcome
         )
 
         predictions.append(
@@ -420,9 +432,17 @@ def main():
                 "Predicted_SecondaryTrades": "|".join(
                     decision.SecondaryTrades
                 ),
-                "Predicted_Outcome": final_outcome,
+                "Raw_Agent_Outcome": raw_outcome,
+                "Governor_Outcome": governor_outcome,
+                "Governor_Intervened": governor_intervened,
                 "Reason": decision.Reason,
             }
+        )
+
+        intervention_marker = (
+            " [GOVERNOR]"
+            if governor_intervened
+            else ""
         )
 
         print(
@@ -431,7 +451,9 @@ def main():
             f"{decision.Urgency} | "
             f"{decision.PrimaryTrade} | "
             f"{decision.SecondaryTrades} | "
-            f"{decision.Outcome} -> {final_outcome}"
+            f"RAW={raw_outcome} | "
+            f"GOV={governor_outcome}"
+            f"{intervention_marker}"
         )
 
     with PREDICTIONS_PATH.open(
@@ -447,7 +469,9 @@ def main():
                 "Predicted_Urgency",
                 "Predicted_PrimaryTrade",
                 "Predicted_SecondaryTrades",
-                "Predicted_Outcome",
+                "Raw_Agent_Outcome",
+                "Governor_Outcome",
+                "Governor_Intervened",
                 "Reason",
             ],
         )
