@@ -55,7 +55,7 @@ Core components:
 - **Deterministic Policy Engine** — final controlled outcome
 - **Fail-safe handling** — unmapped concepts do not silently pass as routine work
 
-Add the graphical architecture diagram at `docs/architecture.png`.
+![Maintenance Autopilot V2.5 architecture](docs/architecture.png)
 
 ## Evaluation journey
 
@@ -120,7 +120,7 @@ Do **not** publish `.venv`, AWS credentials, cache files, private notes, or fail
 ### Clone
 
 ```bash
-git clone <PUBLIC_REPOSITORY_URL>
+git clone https://github.com/Anthony-hue25/maintenance-autopilot.git
 cd maintenance-autopilot
 ```
 
