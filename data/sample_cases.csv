@@ -1,0 +1,7 @@
+Case_ID,Unit,Request,Clarification_Response
+DEMO-001,U1,The bathroom tap has a steady drip.,
+DEMO-002,U2,I think there's a leak somewhere but I can't tell where it's coming from.,
+DEMO-003,U3,The cupboard hinge is loose.,Asked whether it is hanging off or just loose: no reply.
+DEMO-004,U3,The shower drain is backing up again.,History shows the same drain was cleared recently.
+DEMO-005,U4,There's water dripping through the bathroom ceiling light.,
+DEMO-006,U1,The front door handle came off but the door still locks.,
