@@ -56,7 +56,7 @@ Core components:
 * **Deterministic Policy Engine** — final controlled outcome
 * **Fail-safe handling** — unmapped concepts do not silently pass as routine work
 
-!\[Maintenance Autopilot V2.5 architecture](docs/architecture.png)
+![Maintenance Autopilot V2.5 architecture](docs/architecture.png)
 
 ## Evaluation journey
 
@@ -212,4 +212,5 @@ I documented the build, failures, evaluation results, and redesign in the AWS Bu
 ## License
 
 MIT. See [`LICENSE`](LICENSE).
+
 
