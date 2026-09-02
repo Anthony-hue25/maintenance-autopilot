@@ -205,7 +205,7 @@ def main():
             judgment_failsafes += 1
 
     print(
-        "MAINTENANCE AUTOPILOT V2.4 — EVALUATION"
+        "MAINTENANCE AUTOPILOT V2.5 — EVALUATION"
     )
     print(
         "========================================"
@@ -309,7 +309,7 @@ def main():
             print(
                 f"{case_id} | "
                 f"GT: {expected} | "
-                f"V2.4: {actual} | "
+                f"V2.5: {actual} | "
                 f"RULE: {rule} | "
                 f"HAZARD: {hazards} | "
                 f"CONDITION: {conditions} | "
