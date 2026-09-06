@@ -258,7 +258,7 @@ There was **no post-result tuning, policy change or selective rerun** after the 
 
 ## Reproducible evaluation trail
 
-The repository preserves the evaluation sequence in Git:
+The repository preserves the evaluation sequence in Git.
 
 ### Frozen application
 
@@ -373,5 +373,116 @@ maintenance-autopilot/
 ├── docs/
 │   ├── architecture.png  # Deployed architecture diagram
 │   └── media/            # Project story visuals
+├── evaluation/           # Evaluation tooling
+├── hardening_results/    # Deployment-hardening evidence
+├── infrastructure/       # Public API infrastructure
+├── tests/                # Regression and contract tests
 ├── web/                  # Public browser interface
-└── README.md
+├── LICENSE
+├── README.md
+└── requirements.txt
+```
+
+---
+
+# Run locally
+
+## Try the deployed application
+
+The fastest way to experience the finished system is the deployed public application:
+
+### [🚀 Try Maintenance Autopilot](https://sproductiontaging.d5cp73uy4chyq.amplifyapp.com)
+
+**No login is required.** Try one of the built-in examples or enter your own residential-maintenance report.
+
+> AWS credentials, account-specific permissions and deployed resource configuration are not included in the repository.
+
+## Run from source
+
+### Prerequisites
+
+- Python 3.12
+- Git
+- An AWS account with access to Amazon Bedrock
+- AWS credentials configured for the required Bedrock services
+
+### Setup
+
+Clone the repository:
+
+```powershell
+git clone https://github.com/Anthony-hue25/maintenance-autopilot.git
+cd maintenance-autopilot
+```
+
+Create and activate a Python virtual environment:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Install the Python dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+The agent implementation and AgentCore configuration are under:
+
+```text
+MaintAutopilot/agentcore/
+```
+
+The public web application is under:
+
+```text
+web/
+```
+
+The evaluation datasets and preserved results are under:
+
+```text
+data/
+evaluation/
+hardening_results/
+```
+---
+
+# Built with
+
+- Strands Agents SDK
+- Amazon Bedrock
+- Amazon Bedrock AgentCore
+- AWS Lambda
+- Amazon API Gateway
+- AWS Amplify
+- Amazon CloudWatch
+- AWS IAM
+- Python
+- Pydantic
+- JavaScript
+
+---
+
+# Project links
+
+**Live application:**  
+https://sproductiontaging.d5cp73uy4chyq.amplifyapp.com
+
+**AWS Builder article:**  
+https://builder.aws.com/content/3IKuc6YmvnqxJjy3OpIV89JOTSd/agents-for-humans-building-a-maintenance-agent-that-knows-when-not-to-act
+
+---
+
+## Scope
+
+Maintenance Autopilot is a hackathon prototype using synthetic residential-maintenance scenarios.
+
+It does not dispatch contractors, execute repairs, process payments or replace emergency services.
+
+---
+
+**Maintenance Autopilot**
+
+*An agent designed not just to act, but to know when not to.*
