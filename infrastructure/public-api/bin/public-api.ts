@@ -1,0 +1,13 @@
+#!/usr/bin/env node
+import { App } from 'aws-cdk-lib';
+import { PublicApiStack } from '../lib/public-api-stack';
+
+const app = new App();
+
+new PublicApiStack(app, 'MaintAutopilotPublicApi', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION ?? 'us-east-1',
+  },
+  description: 'Public judge API for Maintenance Autopilot',
+});

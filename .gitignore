@@ -36,3 +36,35 @@ dist/
 app/rules.py
 data/predictions.csv
 data/restore_check.csv
+
+# Node / CDK generated files
+node_modules/
+cdk.out/
+
+# Python generated files
+__pycache__/
+*.pyc
+.venv/
+
+# Generated audit reports
+audit_111_outputs.html
+audit_111_flagged.html
+
+# Temporary evaluation files
+data/temp_equivalence_input.csv
+data/temp_equivalence_local.csv
+
+# Deployment / temporary artifacts
+maintenance-autopilot-web.zip
+showcase-test-payload.json
+
+# Common secrets / local configuration
+.env
+.env.*
+*.pem
+*.key
+
+# AgentCore generated/local deployment state
+MaintAutopilot/agentcore/.llm-context/
+MaintAutopilot/agentcore/.cli/deployed-state.json
+MaintAutopilot/aws-test-payload.json

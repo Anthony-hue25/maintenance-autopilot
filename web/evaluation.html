@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Qualified evaluation evidence for Maintenance Autopilot V2.5">
+  <title>Evaluation evidence · Maintenance Autopilot</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Maintenance Autopilot home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Maintenance Autopilot</span>
+    </a>
+    <div class="status evidence-status"><span class="status-dot"></span>Frozen V2.5 evidence</div>
+  </header>
+
+  <main class="evidence-page">
+    <a class="back-link" href="/">← Back to live evaluator</a>
+
+    <section class="evidence-hero" aria-labelledby="evidence-heading">
+      <p class="eyebrow">Evaluation evidence</p>
+      <h1 id="evidence-heading">Governed decisions under a defined boundary</h1>
+      <p class="evidence-lead">Results for the frozen V2.5 development evaluation within the prototype operating envelope.</p>
+    </section>
+
+    <section class="evidence-metrics" aria-label="Development evaluation results">
+      <article><strong>111 / 111</strong><span>Policy outcomes correct</span></article>
+      <article><strong>100%</strong><span>Critical escalation recall</span></article>
+      <article><strong>0</strong><span>Unsafe autonomous actions</span></article>
+      <article><strong>6 / 6</strong><span>Deployed outcome classes verified</span></article>
+    </section>
+
+    <aside class="evidence-qualification">
+      <strong>How to read these results</strong>
+      <p>The 111 cases are labelled development cases from the frozen V2.5 development evaluation, assessed within the prototype operating envelope. They are not an unseen holdout and do not establish production validation.</p>
+    </aside>
+
+    <section class="hardening-section" aria-labelledby="hardening-heading">
+      <div>
+        <p class="eyebrow">Deployed showcase hardening</p>
+        <h2 id="hardening-heading">40 / 40</h2>
+        <p class="hardening-label">Repeated deployed evaluations passed</p>
+      </div>
+      <p>The four frozen judge-facing showcase cases were each run 10 times against the deployed Amazon Bedrock AgentCore runtime, with zero governed outcome or policy-rule mismatches.</p>
+    </section>
+
+    <footer class="evidence-footer">
+      <a class="back-link" href="/">← Back to live evaluator</a>
+    </footer>
+  </main>
+</body>
+</html>

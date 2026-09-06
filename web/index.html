@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Maintenance Autopilot governed maintenance evaluator">
+  <title>Maintenance Autopilot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#evaluate" aria-label="Maintenance Autopilot home">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <span>Maintenance Autopilot</span>
+    </a>
+    <div class="status" id="system-status"><span class="status-dot"></span><span id="system-status-text">Local preview</span></div>
+  </header>
+
+  <nav class="tabs" aria-label="Application views">
+    <button class="tab active" id="tab-evaluate" role="tab" aria-selected="true" aria-controls="evaluate-view">Evaluate issue</button>
+    <button class="tab" id="tab-landlord" role="tab" aria-selected="false" aria-controls="landlord-view">Landlord view</button>
+  </nav>
+
+  <main>
+    <section id="evaluate-view" class="view active" role="tabpanel" aria-labelledby="tab-evaluate">
+      <div class="workspace">
+        <section class="report-panel" aria-labelledby="report-heading">
+          <p class="eyebrow">Governed maintenance triage</p>
+          <h1 id="report-heading">What should happen next?</h1>
+          <p class="intro">Describe the maintenance issue in your own words. The live system will determine the governed next action.</p>
+
+          <form id="evaluate-form" novalidate>
+            <label for="report">Maintenance report</label>
+            <textarea id="report" name="report" maxlength="4000" rows="7" required placeholder="For example: The bathroom sink has been leaking slowly since yesterday."></textarea>
+            <div class="field-meta">
+              <span id="field-error" class="field-error" role="alert"></span>
+              <span id="char-count">0 / 4,000</span>
+            </div>
+
+            <fieldset class="examples">
+              <legend>Try an example</legend>
+              <div class="chips">
+                <button type="button" class="chip" data-example="routine">Dripping faucet</button>
+                <button type="button" class="chip" data-example="security">Window won’t latch</button>
+                <button type="button" class="chip" data-example="authority">AC repair quote</button>
+                <button type="button" class="chip danger-chip" data-example="gas">Gas smell</button>
+              </div>
+            </fieldset>
+
+            <button id="evaluate-button" class="primary-button" type="submit">
+              <span class="button-label">Evaluate issue</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+        </section>
+
+        <aside id="review-context" class="review-context" hidden>
+          <button id="back-to-landlord" class="review-back" type="button">← Back to Landlord view</button>
+          <h1>Reviewing a past evaluation</h1>
+          <p>This is a previously evaluated maintenance issue. Review the decision details below.</p>
+        </aside>
+
+        <section id="result-panel" class="result-panel empty" aria-live="polite" aria-busy="false">
+          <div id="empty-result" class="empty-result">
+            <div class="empty-glyph" aria-hidden="true">→</div>
+            <h2>Decision will appear here</h2>
+            <p>Autopilot will show the next action, boundary and reason.</p>
+          </div>
+
+          <div id="loading-result" class="loading-result" hidden>
+            <div class="pulse-ring" aria-hidden="true"></div>
+            <p class="result-source">CONTACTING AMAZON BEDROCK AGENTCORE</p>
+            <h2>Evaluating the report</h2>
+            <p>Checking safety, information, authority, and policy boundaries…</p>
+          </div>
+
+          <div id="error-result" class="error-result" hidden>
+            <p class="result-source error-label">LIVE EVALUATION FAILED</p>
+            <h2 id="error-title">Unable to evaluate</h2>
+            <p id="error-message"></p>
+            <p id="error-request" class="request-reference"></p>
+          </div>
+
+          <article id="decision-result" class="decision-result" hidden>
+            <p class="result-source"><span class="live-dot"></span>LIVE RESPONSE · AMAZON BEDROCK AGENTCORE</p>
+
+            <section id="original-report" class="original-report" aria-labelledby="original-report-label">
+              <span id="original-report-label">Original maintenance report</span>
+              <p id="original-report-text"></p>
+              <time id="original-report-time" hidden></time>
+            </section>
+
+            <section class="understood-section" aria-labelledby="understood-heading">
+              <p class="result-kicker">What Autopilot understood</p>
+              <h3 id="understood-heading"></h3>
+              <p id="understood-detail"></p>
+            </section>
+
+            <section class="next-section" aria-labelledby="decision-headline">
+              <p class="result-kicker">What happens next</p>
+              <h2 id="decision-headline"></h2>
+              <p id="decision-subheadline" class="decision-subheadline"></p>
+            </section>
+
+            <section class="why-section" aria-labelledby="why-heading">
+              <p class="result-kicker" id="why-heading">Why</p>
+              <p id="decision-explanation" class="decision-explanation"></p>
+            </section>
+
+            <details>
+              <summary>Technical details</summary>
+              <dl class="technical-grid">
+                <div><dt>Raw outcome</dt><dd id="technical-outcome"></dd></div>
+                <div><dt>Policy rule</dt><dd id="technical-rule"></dd></div>
+                <div><dt>Situation</dt><dd id="trace-situation"></dd></div>
+                <div><dt>Policy boundary</dt><dd id="trace-boundary"></dd></div>
+                <div><dt>Governed next action</dt><dd id="trace-next"></dd></div>
+                <div><dt>Hazard</dt><dd id="technical-hazard"></dd></div>
+                <div><dt>Information</dt><dd id="technical-information"></dd></div>
+                <div><dt>Urgency</dt><dd id="technical-urgency"></dd></div>
+                <div><dt>Trade</dt><dd id="technical-trade"></dd></div>
+                <div><dt>Latency</dt><dd id="technical-latency"></dd></div>
+                <div><dt>Evaluation ID</dt><dd id="technical-evaluation"></dd></div>
+                <div><dt>Runtime request</dt><dd id="technical-request"></dd></div>
+              </dl>
+            </details>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <section id="landlord-view" class="view" role="tabpanel" aria-labelledby="tab-landlord" hidden>
+      <div class="landlord-shell">
+        <div class="landlord-heading">
+          <div><h1>Landlord view</h1><p class="landlord-intro">See what Autopilot progressed and what still needs your attention.</p></div>
+          <button id="clear-history" class="secondary-button" type="button">Clear local history</button>
+        </div>
+        <p class="local-note">Demo history is stored in this browser only.</p>
+        <div class="history-summary">
+          <div><strong id="history-evaluated">0</strong><span>Evaluated</span></div>
+          <div><strong id="history-progressed">0</strong><span>Progressed</span></div>
+          <div><strong id="history-needs-you">0</strong><span>Needs you</span></div>
+          <div><strong id="history-waiting">0</strong><span>Waiting</span></div>
+        </div>
+        <div id="history-empty" class="history-empty">
+          <strong>No maintenance activity yet</strong>
+          <p>Evaluate an issue to see how Autopilot separates work it can progress from decisions that need you.</p>
+        </div>
+        <div id="history-list" class="history-list"></div>
+        <a class="evidence-link" href="/evaluation.html">View evaluation evidence →</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="presentation.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

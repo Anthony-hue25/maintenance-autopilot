@@ -1,0 +1,22 @@
+{
+  "name": "maintenance-autopilot-public-api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "synth": "npm run build && cdk synth"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "~2.261.0",
+    "constructs": "~10.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "~29.5.14",
+    "@types/node": "~24.13.3",
+    "aws-cdk": "~2.1126.0",
+    "jest": "~29.7.0",
+    "ts-jest": "~29.4.11",
+    "typescript": "~5.9.3"
+  }
+}
