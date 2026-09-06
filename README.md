@@ -2,396 +2,376 @@
 
 **A bounded-autonomy maintenance agent that knows when to act — and when not to.**
 
-Built for the AWS **Agents for Humans** hackathon using the **Strands Agents SDK**, **Amazon Bedrock**, and **Amazon Bedrock AgentCore**.
+Maintenance Autopilot helps landlords keep routine maintenance moving while bringing them back in when their judgment, approval or attention is actually needed.
 
-[Live Demo](https://sproductiontaging.d5cp73uy4chyq.amplifyapp.com) · [Build Story](https://builder.aws.com/content/3IKuc6YmvnqxJjy3OpIV89JOTSd/agents-for-humans-building-a-maintenance-agent-that-knows-when-not-to-act)
+## 🚀 Try it live
 
-> Personal hackathon project using synthetic residential-maintenance scenarios. It is separate from employer systems, data, and intellectual property.
+### [Open Maintenance Autopilot](https://sproductiontaging.d5cp73uy4chyq.amplifyapp.com)
 
----
+No login required.
 
-## The problem
+Try one of the built-in maintenance examples or describe your own residential-maintenance issue in everyday language.
 
-A small landlord can receive many maintenance reports, but not every report needs the same level of human attention.
-
-A dripping faucet may be routine. A vague security issue may need clarification. A repair above the owner's authority limit needs approval. A gas hazard needs protective action and human escalation.
-
-The challenge is therefore not simply:
-
-> Can an AI agent act?
-
-It is also:
-
-> **Does it know when it should not act on its own?**
-
-Maintenance Autopilot explores that boundary.
+> **Use AI to understand what is happening. Use deterministic policy to control what must happen next.**
 
 ---
 
-## The design principle
+## Why Maintenance Autopilot?
 
-> **Use AI to interpret what is happening. Use deterministic policy to control what must happen next.**
+Maintenance is full of small decisions.
 
-The language model does not have unrestricted authority to choose the final workflow action.
+A landlord might receive a dripping-faucet report, a bedroom window that will not latch, an AC repair quote, and a possible gas leak — all through the same channel.
 
-Instead, AI components interpret an unstructured maintenance report into structured, decision-relevant concepts. A deterministic policy engine then applies explicit authority and safety rules.
+Every message needs to go somewhere.
 
-The six governed outcomes are:
+**But not every message needs the landlord.**
 
-`ACT` · `ASK` · `AWAITING` · `ESCALATE` · `ACT+ESCALATE` · `CLOSE`
+![Too many maintenance messages](docs/media/image1.png)
 
-Examples:
+The goal of Maintenance Autopilot is not to automate everything.
 
-- `ACT` — routine authorized work can progress
-- `ASK` — decision-changing information is missing
-- `AWAITING` — a non-safety clarification was requested but no response was received
-- `ESCALATE` — the issue exceeds an authority or decision boundary
-- `ACT+ESCALATE` — protective action is required while returning the decision to a human
-- `CLOSE` — no maintenance action remains
+It is to let routine work progress while returning risk, uncertainty and important decisions to the person who still owns the judgment.
 
 ---
 
-## Try the live system
+## It starts with the tenant
 
-**[Open Maintenance Autopilot](https://sproductiontaging.d5cp73uy4chyq.amplifyapp.com)**
+Tenants should not need to learn a complicated maintenance system.
 
-The judge-facing demo accepts a maintenance report in natural language and returns:
+They should be able to describe what is wrong naturally.
 
-1. what Autopilot understood
-2. what should happen next
-3. why
-4. the technical decision trace
+![It starts with the tenant](docs/media/image2.png)
 
-Four examples are included in the interface to demonstrate different authority boundaries:
-
-- routine dripping faucet
-- window that will not latch
-- AC repair quoted above authority
-- escalating gas smell
-
-The live response is produced through the deployed AWS system — it is not a prerecorded or hard-coded decision.
+Maintenance Autopilot interprets those unstructured reports and extracts the information needed to make a governed maintenance decision.
 
 ---
 
-## How it works
+## Let Autopilot handle what it can
 
-```text
-Maintenance report
-        |
-        v
-+-----------------------+
-| AI interpretation     |
-|                       |
-| Issue decomposition   |
-| Hazard assessment     |
-| Case assessment       |
-| Repeat assessment     |
-+-----------+-----------+
-            |
-            v
-+-----------------------+
-| Validated concepts    |
-|                       |
-| hazard                |
-| condition             |
-| information state     |
-| urgency               |
-| trade                 |
-| repeat signal         |
-+-----------+-----------+
-            |
-            v
-+-----------------------+
-| Deterministic policy  |
-|                       |
-| safety boundaries     |
-| authority limits      |
-| clarification rules   |
-| escalation rules      |
-+-----------+-----------+
-            |
-            v
- ACT / ASK / AWAITING / ESCALATE
-      / ACT+ESCALATE / CLOSE
-```
+A maintenance report enters in ordinary language.
 
-This separation is deliberate:
+Autopilot determines:
+
+- what the issue appears to be
+- whether a safety concern exists
+- whether enough information is available
+- whether the work is within the configured authority
+- whether the issue indicates recurrence or progression
+- what governed action is allowed next
+
+![Let Autopilot handle what it can](docs/media/image3.png)
+
+> The illustration above communicates the product experience. The current prototype returns governed workflow decisions; it does not yet dispatch contractors or send tenant notifications.
+
+The deployed system supports six governed outcomes:
+
+| Outcome | Meaning |
+|---|---|
+| **ACT** | Authorized to progress |
+| **ASK** | More decision-changing information is needed |
+| **AWAITING** | Waiting for external information or response |
+| **ESCALATE** | Human approval or judgment is required |
+| **ACT + ESCALATE** | Protective action is required while returning the issue to human attention |
+| **CLOSE** | No further maintenance action is required |
+
+---
+
+## Different problems. Different decisions.
+
+The same landlord may receive maintenance reports with completely different risk and authority implications.
+
+![Different problems, different decisions](docs/media/image4.png)
+
+For the current demo property, the configured repair-authority limit is **$200**.
+
+That means, for example:
+
+- a routine dripping faucet can progress
+- an unclear window-security issue can request clarification
+- a **$285 AC repair quote** returns to the landlord for approval
+- a strong smell of gas takes the protective path
+
+The objective is not simply to make a decision.
+
+**It is to know the boundary of the decision the agent is allowed to make.**
+
+---
+
+## Giving the landlord back their attention
+
+Individual decisions are only part of the maintenance problem.
+
+The **Landlord View** brings them together into a simple operational picture:
+
+**What came in? What progressed? What needs me? What are we waiting on?**
+
+![Landlord View](docs/media/image5.png)
+
+Routine maintenance can move without demanding attention every time, while issues that need judgment, approval or intervention are brought clearly to the surface.
+
+---
+
+# How it works
+
+Maintenance Autopilot deliberately separates **semantic interpretation** from **decision authority**.
+
+![AI understands. Policy controls.](docs/media/image6.png)
+
+> The visual above illustrates the bounded-autonomy concept. The deployed technical architecture is shown below.
+
+## Deployed AWS architecture
+
+![Maintenance Autopilot AWS architecture](docs/architecture.png)
+
+The live application follows this path:
+
+**Browser → AWS Amplify → Amazon API Gateway → AWS Lambda → Amazon Bedrock AgentCore → Strands-based agent → Amazon Bedrock**
+
+The semantic pipeline uses the **Strands Agents SDK** and **Amazon Bedrock** to interpret an unstructured report through:
+
+**Issue decomposition → Hazard assessment → Case assessment → Repeat assessment → Validation**
+
+The resulting structured concepts are passed to a **deterministic policy engine**.
+
+The model does not freely choose the final workflow action.
+
+Explicit policy rules control decision boundaries such as:
+
+- critical hazards
+- security exposure
+- repair authority
+- information sufficiency
+- repeat failure
+- replacement or upgrade decisions
+- progressive damage
+- property damage
+- resolved issues
 
 **AI interprets the situation. Policy controls the authority.**
 
 ---
 
-## AWS deployment
+## Bounded autonomy
 
-The public demo follows this path:
+Maintenance Autopilot V2.5 currently governs six possible outcomes:
 
-```text
-Browser
-  |
-  v
-AWS Amplify
-  |
-  v
-Amazon API Gateway
-  |
-  v
-AWS Lambda
-  |
-  v
-Amazon Bedrock AgentCore
-  |
-  v
-Strands-based V2.5 agent
-  |
-  v
-Amazon Bedrock
-```
+`ACT` · `ASK` · `AWAITING` · `ESCALATE` · `ACT+ESCALATE` · `CLOSE`
 
-The browser does not invoke AgentCore directly.
+Examples of deterministic boundaries include:
 
-The server-side API validates the public request, injects controlled property context, invokes the AgentCore runtime, validates the returned decision contract, and sends a normalized result to the frontend.
+- critical hazard → **ACT+ESCALATE**
+- repair cost above configured authority → **ESCALATE**
+- unresolved security concern needing more information → **ASK**
+- explicit no-response state → **AWAITING**
+- repeat failure → **ESCALATE**
+- resolved issue → **CLOSE**
+- routine work within the boundary → **ACT**
 
-### Main technologies
+This is the central design principle:
 
-- **Strands Agents SDK** — semantic agent components
-- **Amazon Bedrock** — model inference
-- **Amazon Bedrock AgentCore** — deployed agent runtime
-- **AWS Lambda** — public API adapter
-- **Amazon API Gateway** — controlled HTTP boundary
-- **AWS Amplify** — static judge-facing application
-- **CloudWatch** — runtime observability
-- **Python** — agent, policy, evaluation, and API logic
-- **HTML/CSS/JavaScript** — lightweight public interface
+> **The best agent is not necessarily the one that does the most.**
 
-![Maintenance Autopilot V2.5 architecture](docs/architecture.png)
+A useful agent should also know when its autonomy should stop.
 
 ---
 
-## Evaluation
+# Public application boundaries
 
-Maintenance Autopilot was tested at three different levels.
+The public demo includes controls around the deployed agent such as:
 
-| Evaluation | What it tests | Result |
-|---|---|---:|
-| Development evaluation | Policy correctness during V2.5 development | **111/111** governed outcomes correct |
-| Deployed hardening | Stability of four frozen showcase cases against deployed AgentCore | **40/40** passed |
-| Post-freeze Holdout C | Generalization after the application and expected answers were locked | **63/80 (78.8%)** |
-
-These results are deliberately reported separately because they answer different questions.
-
-### Post-freeze Holdout C
-
-The final 80-case holdout dataset and expected outcomes were locked after the application was frozen and before the official evaluation was executed.
-
-Expected governed outcomes were locked before execution. The official evaluation was then completed once, with no post-result tuning or selective reruns.
-
-| Expected outcome | Correct |
-|---|---:|
-| `ACT+ESCALATE` | **15/15 (100%)** |
-| `AWAITING` | **8/8 (100%)** |
-| `CLOSE` | **10/10 (100%)** |
-| `ACT` | **17/18 (94.4%)** |
-| `ASK` | **5/11 (45.5%)** |
-| `ESCALATE` | **8/18 (44.4%)** |
-| **Overall** | **63/80 (78.8%)** |
-
-The strongest result is directly related to the project's safety objective:
-
-> **All 15/15 holdout cases requiring protective `ACT+ESCALATE` behavior were correctly governed.**
-
-The holdout also exposed a real limitation. Performance was weaker at clarification and non-critical escalation boundaries, particularly where the semantic interpretation layer needed to identify repeat failure, progression, or insufficient information.
-
-Those misses were retained. The application was not tuned or rerun to improve the Holdout C score.
-
-### Reproducibility trail
-
-The evaluation sequence is preserved in Git:
-
-```text
-b5d9f88
-submission-freeze-2026-09-06
-Application frozen
-        |
-        v
-71e92bb
-holdout-c-preregistered-2026-09-06
-80-case ground truth locked
-        |
-        v
-One official execution
-        |
-        v
-ae3b88c
-holdout-c-results-2026-09-06
-Predictions and results preserved
-```
-
-The ground-truth and official-prediction SHA-256 hashes are recorded with the Holdout C evidence in `data/holdout_c_results.txt`.
-
----
-
-## What the holdout taught me
-
-The result highlights an important distinction in governed-agent design.
-
-The deterministic policy can correctly enforce a boundary **only when the semantic layer successfully surfaces the decision-critical fact needed by that rule**.
-
-Several Holdout C misses occurred because repeat, progression, or information-sufficiency signals were not recognized strongly enough by the interpretation layer. The deterministic governor then applied the rule corresponding to the facts it actually received.
-
-That suggests a clear next engineering direction: improve semantic extraction and validation without weakening the deterministic authority boundary.
-
----
-
-## Safety and authority design
-
-The final action is not freely generated by the language model.
-
-Examples of explicit policy behavior include:
-
-- critical hazards require protective action plus human escalation
-- primary-entrance security exposure requires protective action plus escalation
-- repair cost above configured authority requires escalation
-- missing decision-changing information can require clarification
-- non-safety silence after a clarification request can wait
-- repeat failures can require escalation
-- replacement or upgrade recommendations require escalation
-- property damage can require action plus escalation
-- resolved cases close
-- unmapped decision-critical concepts fail conservatively
-
-The public API adds another boundary around the agent:
-
-- strict request schema
 - server-controlled property context
-- input length limits
+- strict request validation
+- input-size limits
 - restrictive CORS
 - API throttling
-- bounded retry for transient AgentCore failure
+- bounded retry for transient AgentCore failures
+- explicit timeout handling
 - response-contract validation
-- no raw backend errors returned to the browser
-- no claim that a technician was actually dispatched or repair executed
+- privacy-conscious logging
+- least-privilege AgentCore invocation from the public Lambda
+- browser double-submit protection
 
-This remains a **prototype**, not production property-management or emergency-response software.
+The interface also distinguishes between a **governed decision** and a **real-world event**.
+
+For example, `ACT` means the work is **authorized to progress**.
+
+It does not claim that a technician has been dispatched when no contractor integration exists.
 
 ---
 
-## Repository guide
+# How I tested it
 
-Key areas of the repository:
+I used three separate evaluation layers.
 
-```text
-app/
-  V2.5 semantic assessors and deterministic policy
+They answer different questions and are intentionally **not combined into one accuracy number**.
 
-MaintAutopilot/
-  AgentCore runtime and deployment implementation
+## 1. Development evaluation
 
-infrastructure/
-  Public AWS API infrastructure
+**111 / 111 governed outcomes correct**
 
-web/
-  Judge-facing application and presentation layer
+These labelled cases were used during V2.5 development and regression testing.
 
-data/
-  Development datasets, Holdout C ground truth,
-  official predictions and preserved results
+They demonstrate correctness within the developed evaluation envelope and are **not presented as an unseen final holdout**.
 
-hardening_results/
-  Repeated deployed showcase evaluation evidence
+---
 
-frozen/v2_5/
-  Frozen V2.5 reference implementation
+## 2. Deployed hardening
 
-docs/
-  Architecture and testing documentation
-```
+Four representative decision scenarios were each run ten times against the deployed Amazon Bedrock AgentCore system.
 
-Important evaluation artifacts include:
+**40 / 40 returned the expected governed outcome and policy rule.**
+
+This tested whether the deployed system consistently preserved the intended governed decisions across repeated live evaluations.
+
+---
+
+## 3. Post-freeze Holdout C
+
+The application was frozen before an additional **80-case holdout** was locked and officially evaluated.
+
+The expected outcomes were preregistered and hashed before execution.
+
+### Result
+
+**63 / 80 — 78.8%**
+
+Within that holdout:
+
+- **ACT:** 17 / 18
+- **ACT + ESCALATE:** 15 / 15
+- **AWAITING:** 8 / 8
+- **CLOSE:** 10 / 10
+- **ASK:** 5 / 11
+- **ESCALATE:** 8 / 18
+
+Most importantly for the bounded-autonomy safety objective:
+
+> **All 15/15 holdout cases preregistered as requiring protective ACT+ESCALATE behavior were correctly governed.**
+
+The weaker areas were primarily clarification and non-critical escalation boundaries where the semantic interpretation layer first had to recognize repeat failure, progression or missing information.
+
+Those misses were preserved.
+
+There was **no post-result tuning, policy change or selective rerun** after the official evaluation.
+
+---
+
+## Reproducible evaluation trail
+
+The repository preserves the evaluation sequence in Git:
+
+### Frozen application
+
+`b5d9f88`  
+Tag: `submission-freeze-2026-09-06`
+
+### Preregistered Holdout C
+
+`71e92bb`  
+Tag: `holdout-c-preregistered-2026-09-06`
+
+### Official holdout results
+
+`ae3b88c`  
+Tag: `holdout-c-results-2026-09-06`
+
+Ground-truth SHA-256:
+
+`4626FC8DE92298F05F4F8C1B0CBE0921BB6BBB03CED5AA91172FA0CF486243B4`
+
+Official predictions SHA-256:
+
+`B3C06EA44E8096E591B11088A868411C85588AEA460D4E3320F796251E464DEF`
+
+Relevant evidence files:
 
 - `data/holdout_c_ground_truth.csv`
 - `data/holdout_c_predictions_official.csv`
 - `data/holdout_c_results.txt`
-- deployed hardening results under `hardening_results/`
 
 ---
 
-## Run locally
+# From overwhelmed to in control
 
-### Prerequisites
+The technology matters because of what it can remove from the human workload.
 
-- Python 3.10+
-- AWS account with access to the required Amazon Bedrock model
-- AWS authentication configured locally
-- Git
+![From overwhelmed to in control](docs/media/image7.png)
 
-Clone:
+For the landlord, the intended experience is:
 
-```bash
-git clone https://github.com/Anthony-hue25/maintenance-autopilot.git
-cd maintenance-autopilot
-```
+**less manual triage → clearer decisions → routine work progressing → attention reserved for what matters**
 
-Create a virtual environment on Windows PowerShell:
+The landlord retains authority.
 
-```powershell
-python -m venv .venv
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\.venv\Scripts\Activate.ps1
-```
-
-Install dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-Verify AWS authentication:
-
-```powershell
-aws sts get-caller-identity
-```
-
-Run the sample cases:
-
-```powershell
-python -u -m app.v2_agent `
-  --input .\data\sample_cases.csv `
-  --output .\data\sample_predictions.csv
-```
-
-See `docs/TESTING.md` for additional evaluation guidance.
+The agent handles the decision space it has explicitly been given.
 
 ---
 
-## Build story
+# And the tenant?
 
-The project evolved through failure rather than beginning with the final architecture.
+A maintenance workflow affects both sides of the relationship.
 
-An earlier sealed evaluation showed that adding a simple governor around an AI agent was not enough. That failure drove the redesign toward explicit semantic concepts, validation, deterministic policy, fail-safe behavior, and eventually the deployed V2.5 architecture.
+![A happier tenant](docs/media/image8.png)
 
-I documented that journey here:
+The longer-term opportunity is a maintenance experience where tenants can report problems naturally and landlords can respond more consistently without personally becoming the routing layer for every issue.
 
-**[Agents for Humans: Building a Maintenance Agent That Knows When Not to Act](https://builder.aws.com/content/3IKuc6YmvnqxJjy3OpIV89JOTSd/agents-for-humans-building-a-maintenance-agent-that-knows-when-not-to-act)**
-
----
-
-## Scope
-
-Maintenance Autopilot currently demonstrates governed decision-making for synthetic residential-maintenance scenarios.
-
-It does **not** currently provide:
-
-- contractor dispatch
-- work-order execution
-- payments
-- tenant identity/authentication
-- production property-system integration
-- emergency-service integration
-
-Those would require additional operational, security, privacy, and human-control design before production use.
+> The image above represents the intended future experience. The current prototype does not yet provide tenant messaging, contractor dispatch or completion tracking.
 
 ---
 
-## License
+# What I learned
 
-MIT. See `LICENSE`.
+The first architecture was not the final one.
+
+Early testing showed that simply placing a governor around an AI-generated decision was not enough.
+
+That pushed V2.5 toward a clearer separation between:
+
+**semantic interpretation**  
+and  
+**deterministic authority**
+
+The post-freeze evaluation exposed another important lesson:
+
+> A deterministic policy can enforce a boundary only when the semantic layer successfully surfaces the decision-critical fact that activates it.
+
+That creates a clear next engineering problem: strengthen semantic recognition of repeat failure, progression and information sufficiency **without weakening the deterministic authority boundary**.
+
+---
+
+# What's next
+
+A production version could extend the workflow toward:
+
+**Tenant report → governed triage → approved work → contractor/work-order integration → completion → landlord oversight**
+
+That would require:
+
+- secure tenant and property identity
+- durable workflow state
+- contractor/work-order integrations
+- notifications
+- audit history
+- production-grade monitoring
+- broader real-world validation
+
+The human goal would stay the same:
+
+**Don't make the landlord manage every maintenance interaction. Bring them in when their judgment actually matters.**
+
+---
+
+# Repository guide
+
+Key areas of the repository include:
+
+```text
+maintenance-autopilot/
+├── MaintAutopilot/
+│   └── agentcore/        # AgentCore application and V2.5 agent
+├── data/                 # Evaluation datasets and preserved results
+├── docs/
+│   ├── architecture.png  # Deployed architecture diagram
+│   └── media/            # Project story visuals
+├── web/                  # Public browser interface
+└── README.md
