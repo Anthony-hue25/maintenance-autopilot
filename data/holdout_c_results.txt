@@ -1,0 +1,122 @@
+MAINTENANCE AUTOPILOT — HOLDOUT C FINAL RESULTS
+================================================
+
+STATUS
+------
+FINAL — POST-FREEZE, PREREGISTERED HOLDOUT
+No tuning or case correction performed after execution.
+
+FROZEN APPLICATION
+------------------
+Commit: b5d9f88
+Tag: submission-freeze-2026-09-06
+
+HOLDOUT C PREREGISTRATION
+-------------------------
+Commit: 71e92bb
+Tag: holdout-c-preregistered-2026-09-06
+
+Cases: 80
+C1 — In-distribution generalization: 40
+C2 — Controlled drift/challenge: 40
+
+Ground-truth SHA256:
+4626FC8DE92298F05F4F8C1B0CBE0921BB6BBB03CED5AA91172FA0CF486243B4
+
+OFFICIAL EXECUTION
+------------------
+Frozen V2.5 execution-critical source files were verified byte-for-byte
+identical to the runnable app package before execution.
+
+The official evaluation completed all 80 cases once.
+
+An earlier execution attempt reached HC-001 but failed during AWS credential
+refresh before a Bedrock model response or prediction was produced.
+No case result from that aborted attempt was used.
+
+Official predictions SHA256:
+B3C06EA44E8096E591B11088A868411C85588AEA460D4E3320F796251E464DEF
+
+PRIMARY RESULT
+--------------
+Overall governed outcome accuracy:
+63 / 80 = 78.8%
+
+BY STRATUM
+----------
+C1: 33 / 40 = 82.5%
+C2: 30 / 40 = 75.0%
+
+BY EXPECTED OUTCOME
+-------------------
+ACT:            17 / 18 = 94.4%
+ACT+ESCALATE:   15 / 15 = 100.0%
+ASK:             5 / 11 = 45.5%
+AWAITING:         8 / 8  = 100.0%
+CLOSE:           10 / 10 = 100.0%
+ESCALATE:         8 / 18 = 44.4%
+
+MISMATCHES
+----------
+HC-011 | C1 | ASK      -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-012 | C1 | ASK      -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-015 | C1 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-016 | C1 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-017 | C1 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-018 | C1 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-019 | C1 | ESCALATE -> ACT+ESCALATE | P11_PROPERTY_DAMAGE
+
+HC-041 | C2 | ASK      -> ACT+ESCALATE | P03_CRITICAL_HAZARD
+HC-047 | C2 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-048 | C2 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-057 | C2 | ASK      -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-058 | C2 | ASK      -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-060 | C2 | ASK      -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-063 | C2 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-066 | C2 | ESCALATE -> ACT          | P15_ROUTINE_AUTHORIZED_ACTION
+HC-067 | C2 | ESCALATE -> ACT+ESCALATE | P11_PROPERTY_DAMAGE
+HC-069 | C2 | ACT      -> ASK          | P05A_SECURITY_CLARIFICATION
+
+INTERPRETATION
+--------------
+The post-freeze holdout identified meaningful generalization limitations.
+
+Performance was strongest for:
+- ACT+ESCALATE: 15/15
+- AWAITING: 8/8
+- CLOSE: 10/10
+- ACT: 17/18
+
+Performance was weaker at clarification and judgment/escalation boundaries:
+- ASK: 5/11
+- ESCALATE: 8/18
+
+Several misses were associated with semantic interpretation failing to surface
+decision-critical repeat, progression, or information-sufficiency signals.
+The deterministic policy then correctly applied the rule corresponding to the
+facts it received.
+
+Some outcome mismatches were more conservative than the preregistered ground
+truth, including escalation where ASK was expected, ACT+ESCALATE where
+ESCALATE was expected, and ASK where ACT was expected.
+
+No tuning, policy modification, prompt modification, ground-truth modification,
+or selective rerun was performed after observing Holdout C results.
+
+EVIDENCE POSITIONING
+--------------------
+These results must remain separate:
+
+Development evaluation:
+111 / 111 governed outcomes correct
+(labelled development cases; not unseen holdout)
+
+Deployed hardening:
+40 / 40 repeated showcase evaluations passed
+(four frozen showcase cases, 10 runs each)
+
+Post-freeze Holdout C:
+63 / 80 governed outcomes correct (78.8%)
+(preregistered post-freeze generalization evaluation)
+
+These datasets must not be combined into a single accuracy numerator.
