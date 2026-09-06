@@ -68,3 +68,5 @@ showcase-test-payload.json
 MaintAutopilot/agentcore/.llm-context/
 MaintAutopilot/agentcore/.cli/deployed-state.json
 MaintAutopilot/aws-test-payload.json
+
+MaintAutopilot/agentcore/.cli/
